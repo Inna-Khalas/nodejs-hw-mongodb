@@ -2,6 +2,9 @@ import { model, Schema } from 'mongoose';
 
 const contactsSchema = new Schema(
   {
+    _id: {
+      type: String,
+    },
     name: {
       type: String,
       required: true,
@@ -20,7 +23,7 @@ const contactsSchema = new Schema(
     contactType: {
       type: String,
       required: true,
-      enam: ['work', 'home', 'personal'],
+      enum: ['work', 'home', 'personal'],
       default: 'personal',
     },
   },

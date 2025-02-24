@@ -3,6 +3,7 @@ import cors from 'cors';
 import { pinoHttp } from 'pino-http';
 import { getEnvVar } from './utils/getEnvVar.js';
 import { getAllContacts, getContactById } from './services/contacts.js';
+import mongoose from 'mongoose';
 
 const PORT = Number(getEnvVar('PORT', '3000'));
 
@@ -29,17 +30,22 @@ const setUpServer = () => {
 
   app.get('/contacts/:contactId', async (req, res) => {
     const { contactId } = req.params;
-    const contact = await getContactById(contactId);
+    // if (!mongoose.Types.ObjectId.isValid(contactId)) return false;
 
-    if (!contact) {
-      return res.status(404).json({
-        message: 'Contact not found',
+    try {
+      const contact = await getContactById(contactId);
+
+      if (!contact) {
+        return res.status(404).json({ message: 'Contact not found' });
+      }
+
+      res.status(200).json({
+        message: `Successfully found contact with id ${contactId}`,
+        data: contact,
       });
+    } catch (error) {
+      console.log(error);
     }
-    res.status(200).json({
-      message: `Successfully found contact with id ${contactId}`,
-      data: contact,
-    });
   });
 
   app.get('*', (req, res) => {

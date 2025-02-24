@@ -14,5 +14,6 @@ export const initMongoConnection = async () => {
     console.log('Mongo connection successfully established!');
   } catch (error) {
     console.log(error);
+    res.status(500).json({ message: 'Internal Server Error' });
   }
 };
