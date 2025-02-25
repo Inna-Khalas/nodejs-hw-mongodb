@@ -28,9 +28,10 @@ const setUpServer = () => {
   });
 
   app.get('/contacts/:contactId', async (req, res) => {
-    const { contactId } = req.params;
-
     try {
+      const { contactId } = req.params;
+      console.log('Received contactId:', contactId);
+
       const contact = await getContactById(contactId);
 
       if (!contact) {
