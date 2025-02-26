@@ -7,13 +7,13 @@ const contactsSchema = new Schema(
       required: true,
     },
     phoneNumber: {
-      type: Number,
+      type: String,
       required: true,
     },
     email: {
       type: String,
     },
-    isFavorite: {
+    isFavourite: {
       type: Boolean,
       default: false,
     },
