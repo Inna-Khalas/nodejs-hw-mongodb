@@ -9,6 +9,9 @@ import {
   getContactById,
   updateContact,
 } from '../services/contacts.js';
+import { getEnvVar } from '../utils/getEnvVar.js';
+import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
+import { saveFileToUploadDir } from '../utils/saveFileToUploadDir.js';
 
 export const getAllContactsController = async (req, res) => {
   const { page, perPage } = parsePaginationParams(req.query);
@@ -54,9 +57,19 @@ export const createContactController = async (req, res) => {
     throw createHttpError(401);
   }
 
+  let urlPhoto;
+
+  if (req.file) {
+    urlPhoto =
+      getEnvVar('ENABLE_CLOUDINARY') === 'true'
+        ? await saveFileToCloudinary(req.file)
+        : await saveFileToUploadDir(req.file);
+  }
+
   const contact = await createContact({
     ...req.body,
     userId: req.user._id,
+    photo: urlPhoto,
   });
 
   res.status(201).send({
@@ -69,7 +82,7 @@ export const createContactController = async (req, res) => {
 export const deleteContactController = async (req, res, next) => {
   const { contactId } = req.params;
   const contact = await deleteContact({
-    contactId,
+    _id: contactId,
     userId: req.user._id,
   });
 
@@ -83,12 +96,25 @@ export const deleteContactController = async (req, res, next) => {
 
 export const updateContactController = async (req, res, next) => {
   const { contactId } = req.params;
+
+  let urlPhoto;
+
+  if (req.file) {
+    urlPhoto =
+      getEnvVar('ENABLE_CLOUDINARY') === 'true'
+        ? await saveFileToCloudinary(req.file)
+        : await saveFileToUploadDir(req.file);
+  }
+
   const updatedContact = await updateContact(
     {
       _id: contactId,
       userId: req.user._id,
     },
-    req.body,
+    {
+      ...req.body,
+      photo: urlPhoto,
+    },
   );
 
   if (!updatedContact) {
