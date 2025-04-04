@@ -7,10 +7,13 @@ import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import cookieParser from 'cookie-parser';
 import routers from './routers/index.js';
 import { UPLOAD_DIR } from './constants/index.js';
+import { swaggerDocs } from './middlewares/swagger.js';
 const PORT = Number(getEnvVar('PORT', '3000'));
 
 const setUpServer = () => {
   const app = express();
+
+  app.use('/api-docs', swaggerDocs());
 
   app.use(express.json());
   app.use(cors());
