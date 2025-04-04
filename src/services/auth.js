@@ -14,7 +14,7 @@ import { SMTP } from '../constants/index.js';
 import {
   getFullNameFromTokenGooglePayload,
   validateCode,
-} from '../utils/googleOauth2.js';
+} from '../utils/googleOAuth2.js';
 import { randomBytes } from 'node:crypto';
 
 export const registerUser = async (payload) => {

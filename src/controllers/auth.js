@@ -7,7 +7,7 @@ import {
   resetPassword,
   resetToken,
 } from '../services/auth.js';
-import { generateAuthUrl } from '../utils/googleOauth2.js';
+import { generateAuthUrl } from '../utils/googleOAuth2.js';
 import { setUpSession } from '../utils/setUpSession.js';
 
 export const registerUserController = async (req, res) => {
