@@ -1,6 +1,6 @@
 tags:
   - Auth
-summary: Logout user
+summary: logout user
 description: Logs out user and invalidates session
 operationId: logoutUser
 security:

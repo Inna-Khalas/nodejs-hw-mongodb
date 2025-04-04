@@ -1,4 +1,4 @@
-description: Bad Request – The client sent invalid data.
+description: The client sent invalid data.
 content:
   application/json:
     schema:
