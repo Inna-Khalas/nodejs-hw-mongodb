@@ -3,7 +3,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import createHttpError from 'http-errors';
 
-import { getEnvVar } from '../utils/getEnvVar.js';
+import { getEnvVar } from './getEnvVar.js';
 
 const oauthConfig = JSON.parse(
   await fs.readFile(path.join(process.cwd(), 'src', 'google-oauth.json')),
