@@ -1,4 +1,4 @@
-description: various errors on the server side
+description: Various errors on the server side
 content:
   application/json:
     schema:

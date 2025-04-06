@@ -13,8 +13,6 @@ const PORT = Number(getEnvVar('PORT', '3000'));
 const setUpServer = () => {
   const app = express();
 
-  app.use('/api-docs', swaggerDocs());
-
   app.use(express.json());
   app.use(cors());
   app.use(cookieParser());
@@ -33,6 +31,7 @@ const setUpServer = () => {
   });
 
   app.use(routers);
+  app.use('/api-docs', swaggerDocs());
   app.use('/uploads', express.static(UPLOAD_DIR));
   app.use('*', notFoundHandler);
   app.use(errorHandler);

@@ -1,6 +1,6 @@
 tags:
   - Auth
-summary: Refresh tokens
+summary: refresh tokens
 description: Get new access and refresh tokens using refresh token
 operationId: refreshToken
 security:
