@@ -44,7 +44,6 @@ requestBody:
             description: "Link to contact's photo"
             type: string
             format: binary
-            default: null
             example: 'https://res.cloudinary.com/dxrovat3s/image/upload/v1743504692/kv9oj0gluxspmqpulvgg.jpg'
 
 responses:
