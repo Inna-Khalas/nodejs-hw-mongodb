@@ -17,7 +17,6 @@ requestBody:
           - name
           - phoneNumber
           - contactype
-          - userId
         properties:
           name:
             description: 'Please provide contact name'
