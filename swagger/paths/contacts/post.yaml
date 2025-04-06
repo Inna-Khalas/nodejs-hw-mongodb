@@ -1,7 +1,8 @@
 tags:
   - Contacts
 summary: create new contact
-description: Creates a new contact in the database.
+description: >
+  Creates a new contact in the database.
   Required fields depend on the contact schema.
   The contact can belong to categories like "work", "personal", or "home".
   Can optionally include a photo.
@@ -16,7 +17,7 @@ requestBody:
         required:
           - name
           - phoneNumber
-          - contactype
+          - contacType
         properties:
           name:
             description: 'Please provide contact name'
@@ -44,7 +45,6 @@ requestBody:
             description: "Link to contact's photo"
             type: string
             format: binary
-            example: 'https://res.cloudinary.com/dxrovat3s/image/upload/v1743504692/kv9oj0gluxspmqpulvgg.jpg'
 
 responses:
   '201':
