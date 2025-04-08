@@ -1,4 +1,4 @@
-import { ONE_MOUNTH } from '../constants/index.js';
+import { FIFTEEN_MINUTES, ONE_MOUNTH } from '../constants/index.js';
 
 const options = {
   httpOnly: true,
@@ -8,4 +8,8 @@ const options = {
 export const setUpSession = (res, session) => {
   res.cookie('sessionId', session._id, options);
   res.cookie('refreshToken', session.refreshToken, options);
+  res.cookie('accessToken', session.accessToken, {
+    ...options,
+    expires: new Date(Date.now() + FIFTEEN_MINUTES),
+  });
 };
