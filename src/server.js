@@ -16,7 +16,8 @@ const setUpServer = () => {
   app.use(express.json());
   app.use(
     cors({
-      origin: 'http://localhost:5173',
+      origin:
+        'https://first-react-project-1nab-eepvz25s2-inna-khalas-projects.vercel.app/',
       credentials: true,
     }),
   );
