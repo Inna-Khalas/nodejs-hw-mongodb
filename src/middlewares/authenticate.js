@@ -3,42 +3,28 @@ import { SessionsCollections } from '../db/models/session.js';
 import { UsersCollections } from '../db/models/user.js';
 
 export const authenticate = async (req, res, next) => {
-  const authHeader = req.get('Authorization');
+  const token = req.cookies.sessionId;
 
-  if (!authHeader) {
-    next(createHttpError(401, 'Будь-ласка передайте заголовок'));
-    return;
+  if (!token) {
+    return next(createHttpError(401, 'Access token is missing'));
   }
 
-  const bearer = authHeader.split(' ')[0];
-  const token = authHeader.split(' ')[1];
-
-  if (bearer !== 'Bearer' || !token) {
-    next(
-      createHttpError(401, 'Заголовок авторизації повинен бути типу Bearer'),
-    );
-    return;
-  }
-
-  const session = await SessionsCollections.findOne({ accessToken: token });
+  const session = await SessionsCollections.findOne({ token });
 
   if (!session) {
-    next(createHttpError(401, 'Сесію не знайдено'));
-    return;
+    return next(createHttpError(401, 'Session not found'));
   }
 
-  if (session.accessTokenValidUntil < new Date()) {
-    next(createHttpError(401, 'AccessToken is expired'));
+  if (new Date() > new Date(session.accessTokenValidUntil)) {
+    return next(createHttpError(401, 'Access token is expired'));
   }
 
   const user = await UsersCollections.findById(session.userId);
 
   if (!user) {
-    next(createHttpError(401, 'User not found'));
-    return;
+    return next(createHttpError(401, 'User not found'));
   }
 
   req.user = user;
-
   next();
 };

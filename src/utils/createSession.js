@@ -5,7 +5,7 @@ export const createSession = () => {
   return {
     accessToken: randomBytes(30).toString('base64'),
     refreshToken: randomBytes(30).toString('base64'),
-    accessTokenValidUntil: Date.now() + FIFTEEN_MINUTES,
-    refreshTokenValidUntil: Date.now() + ONE_MOUNTH,
+    accessTokenValidUntil: new Date(Date.now() + FIFTEEN_MINUTES),
+    refreshTokenValidUntil: new Date(Date.now() + ONE_MOUNTH),
   };
 };
